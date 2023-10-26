@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Brand Image */
+.brand{
+    background-image: url('/public/img/side1.png');
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+    background-position: 69% 0%;
+}
+
+.brand h1, section h3.section-title{
+    font-family: 'Roboto Slab', serif;
+    text-shadow: 0px 3.1103358268737793px 3.1103358268737793px #00000040;
+
+}
+
+.calendar, .count-container{
+    font-family: 'Roboto Slab', serif;
+}
+
+.main-container{
+    margin-top: 10%;
+}
