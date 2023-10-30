@@ -1,4 +1,4 @@
-<figure class="brand text-center flex flex-col justify-between w-1/4">
+<figure class="brand text-center flex flex-col justify-between w-1/4 select-none">
     <div class="mt-14 ">
         <h1 class="uppercase text-5xl">Tigumi</h1>
         <p class="text-2xl mt-1">Hard Work <br>Deserves <br>Smart Savings</p>

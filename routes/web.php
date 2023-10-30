@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CalendarTest;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,17 +15,15 @@ use App\Http\Controllers\CalendarTest;
 |
 */
 
+
+// Just login
 Route::get('/', function () {
     return view('pages.login');
 });
+Route::post('loginAuth', [AuthController::class, 'login'])->name('auth.login');
 
-Route::get('/expense', function () {
-    return view('pages.add');
-});
+// All Functions
+Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+Route::get('/expense', [AdminController::class, 'addExpense'])->name('expense');
 
-// Route::get('/dashboard', function () {
-//     return view('pages.home');
-// });
-
-Route::get('/dashboard', [CalendarTest::class, 'showCalendar']);
-
+Route::post('storeExp', [AdminController::class, 'storeExpense'])->name('storeExp');
