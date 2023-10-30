@@ -18,7 +18,7 @@
                 </div>
             </div>
 
-            <p class="calendar m-auto text-center text-3xl ">{{ $monthName }}</p>
+            <p id="monthName" class="calendar text-3xl w-fit m-auto cursor-pointer">{{ $monthName }}</p>
             <div class="flex justify-center">
                 <table class="calendar bg-gray-200 text-center">
                     <tr class="bg-none bg-white text-lg">
@@ -39,7 +39,9 @@
                         {{-- Check for logged expenses on calendar day --}}
                         @if (in_array($day, $expKeys))
                             <td class="px-4 pb-6 pt-2 text-2xl text-white bg-black select-none">{{ $day }}
-                                <p class="expenses h-3 w-10 text-2xl m-auto">{{ $expList[$day] }}</p>
+                                <div class="h-3">
+                                    <p class="expenses w-10 text-2xl m-auto">{{ $expList[$day] }}</p>
+                                </div>
                         @else
                             <td class="px-4 pb-6 pt-2 text-2xl text-white bg-zinc-500 select-none">{{ $day }}
                                 <p class="h-3 w-10 text-2xl"></p>
@@ -52,4 +54,8 @@
             @include('component.navButton')
         </section>
     </main>
+@endsection
+
+@section('scripts')
+    @vite('resources/js/pages/home.js')
 @endsection

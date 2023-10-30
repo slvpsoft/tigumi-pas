@@ -18,8 +18,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
+        'username',
         'password',
     ];
 
@@ -39,7 +38,17 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    /**
+     * Exp Attributes
+     */
+    public function labels() {
+        return $this->hasMany(ExpenseLabel::class);
+    }
+
+    public function categories() {
+        return $this->hasMany(ExpenseCategory::class);
+    }
 }
