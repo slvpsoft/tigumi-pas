@@ -55,3 +55,7 @@
         </section>
     </main>
 @endsection
+
+@section('scripts')
+    @vite('resources/js/pages/home.js')
+@endsection
