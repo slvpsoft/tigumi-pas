@@ -22,12 +22,51 @@ class AdminController extends Controller
         $firstDay = $firstDay == 7 ? 1 : $firstDay + 1;
 
         // Exp Management
-        // Get DB Data
-        $totalMonthExp = 9999;
-        $combo = 99;
-        $expList = [
-            2 => 250
-        ];
+        $startDate = "$year-$month-01";
+        $endDate = "$year-$month-".$daysInMonth;
+        // $totalMonthExp = 9999;
+        // $expList = [
+        //     2 => 250
+        // ];
+        // $combo = 99;
+
+        $expList = [];
+        // Get all user expenses of the month
+        $expLogs = ExpenseLog::where('user_id', auth()->id())
+        ->whereBetween('log_date', [$startDate, $endDate])->get();
+
+        // Calculate total expenses amount
+        $totalMonthExp = $expLogs->pluck('amount')->sum();
+
+        // Get total expenses by day
+        $expLogDates = $expLogs->groupBy('log_date')->map(function($logList){
+            return $logList->reduce(function($sum, $log){
+                return $sum + $log->amount;
+            });
+        })->all();
+
+        // Reformat keys of dates to days
+        foreach($expLogDates as $key => $expLog) {
+            $newKey = (int)str_replace("$year-$month-", '', $key);
+            $expList[$newKey] = $expLog;
+        }
+
+        // Combo Prep
+        $expCombo = 0;
+        $logDates = ExpenseLog::where('user_id', auth()->id())
+        ->where('log_date', '<=', date('Y-m-d'))->pluck('log_date')->sortKeys()->unique()->all();
+
+        // Calculate for Streak Combo
+        foreach($logDates as $key => $logDate){
+            $dateNow = $key == 0 ? date('Y-m-d') : $logDates[$key-1];
+            if((int)date_diff(date_create($dateNow),date_create($logDate))->format('%a') > 2){
+                $expCombo = $key == 0? 1 : 0;
+                break;
+            }else{
+                $expCombo++;
+            }
+        }
+
         $expKeys = array_keys($expList);
 
         // TODO: Cache Dis
@@ -42,7 +81,7 @@ class AdminController extends Controller
             'monthName' => $monthName,
             // Expense Variables
             'totalMonthExp' => $totalMonthExp,
-            'combo' => $combo,
+            'combo' => $expCombo,
             'expList' => $expList,
             'expKeys' => $expKeys
         ]);
