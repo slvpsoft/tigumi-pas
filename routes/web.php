@@ -19,11 +19,13 @@ use App\Http\Controllers\AuthController;
 // Just login
 Route::get('/', function () {
     return view('pages.login');
-});
+})->name('login');
 Route::post('loginAuth', [AuthController::class, 'login'])->name('auth.login');
 
-// All Functions
-Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
-Route::get('/expense', [AdminController::class, 'addExpense'])->name('expense');
+Route::middleware('auth')->group(function () {
+    // All Functions
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+    Route::get('/expense', [AdminController::class, 'addExpense'])->name('expense');
 
-Route::post('storeExp', [AdminController::class, 'storeExpense'])->name('storeExp');
+    Route::post('storeExp', [AdminController::class, 'storeExpense'])->name('storeExp');
+});
