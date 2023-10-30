@@ -6,6 +6,8 @@
         <link rel="shortcut icon" href="{{asset('img/favicon_tpas.ico')}}" type="image/x-icon">
 
         <title>Tigumi | Personal Accounting System</title>
+        <meta name="description" content="Hard Work Deserves Smart Savings">
+        <meta name="keywords" content="tigumi, slvpsoftware, philippines, cebu, personal accounting, accounting system">
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
