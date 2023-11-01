@@ -59,10 +59,13 @@ class AdminController extends Controller
         // Calculate for Streak Combo
         foreach($logDates as $key => $logDate){
             $dateNow = $key == 0 ? date('Y-m-d') : $logDates[$key-1];
+            // Checks if the combo has more than 2 days gap
             if((int)date_diff(date_create($dateNow),date_create($logDate))->format('%a') > 2){
                 $expCombo = $key == 0? 1 : 0;
+                // Combo Broken
                 break;
             }else{
+                // Nice Combo!
                 $expCombo++;
             }
         }
@@ -141,6 +144,8 @@ class AdminController extends Controller
         $expLog->amount = $request->amount;
         $expLog->log_date = Carbon::now();
         $expLog->save();
+
+        // Clear Hashed Cache
 
         return redirect('dashboard');
     }
