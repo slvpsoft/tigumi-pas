@@ -33,20 +33,31 @@
                     <tr>
                         @for ($day = 1; $day <= $daysInMonth; $day++)
                             @if (($day + $firstDay - 1) % 7 == 1 && $day != 1)
-                    </tr>
-                    <tr>
-                        @endif
-                        {{-- Check for logged expenses on calendar day --}}
-                        @if (in_array($day, $expKeys))
-                            <td class="px-4 pb-6 pt-2 text-2xl text-white bg-black select-none">{{ $day }}
-                                <div class="h-3">
-                                    <p class="expenses w-10 text-2xl m-auto">{{ $expList[$day] }}</p>
-                                </div>
-                        @else
-                            <td class="px-4 pb-6 pt-2 text-2xl text-white bg-zinc-500 select-none">{{ $day }}
-                                <p class="h-3 w-10 text-2xl"></p>
-                        @endif
-                        </td>
+                        </tr>
+                        <tr>
+                            @endif
+                            {{-- On First Day, Add empty days --}}
+                                @if($day == 1)
+                                    @for($emptyDay = 1; $emptyDay < $firstDay; $emptyDay++)
+                                        <td class="px-4 pb-6 pt-2">
+                                            <div class="h-3">
+                                            </div>
+                                        </td>
+                                    @endfor
+                                @endif
+
+                                {{-- Check for logged expenses on calendar day --}}
+                                @if (in_array($day, $expKeys))
+                                    <td class="px-4 pb-6 pt-2 text-2xl text-white bg-black select-none">{{ $day }}
+                                        <div class="h-3">
+                                            <p class="expenses w-10 text-2xl m-auto">{{ $expList[$day] }}</p>
+                                        </div>
+                                    </td>
+                                @else
+                                    <td class="px-4 pb-6 pt-2 text-2xl text-white bg-zinc-500 select-none">{{ $day }}
+                                        <p class="h-3 w-10 text-2xl"></p>
+                                    </td>
+                                @endif
                         @endfor
                     </tr>
                 </table>
