@@ -58,7 +58,7 @@ class AdminController extends Controller
 
         // Calculate for Streak Combo
         foreach($logDates as $key => $logDate){
-            $dateNow = $key == 0 ? date('Y-m-d') : $logDates[$key-1];
+            $dateNow = $key == 0 ? date('Y-m-d') : $logDate;
             // Checks if the combo has more than 2 days gap
             if((int)date_diff(date_create($dateNow),date_create($logDate))->format('%a') > 2){
                 $expCombo = $key == 0? 1 : 0;
