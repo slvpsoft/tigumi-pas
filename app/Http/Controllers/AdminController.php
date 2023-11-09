@@ -61,10 +61,12 @@ class AdminController extends Controller
         $sampleCompare = [];
         $lastDate = "";
         // Calculate for Streak Combo
+
         foreach ($logDates as $key => $logDate) {
             $dateNow = $logDate == $firstLog ? date('Y-m-d') : $lastDate;
             // Checks if the combo was more than 2 days gap
             if (((int) date_diff(date_create($dateNow),date_create($logDate))->format('%a')) >= 2) {
+
                 // Combo Broken
                 break;
             } else {
